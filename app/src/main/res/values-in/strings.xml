@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Bangkit Story</string>
+    <string name="bangkit_logo">Bangkit Logo</string>
+    <string name="welcome">Selamat Datang di Bangkit Story</string>
+    <string name="login_subtitle">Mohon masuk untuk melanjutkan</string>
+    <string name="register_subtitle">Mohon daftar untuk melanjutkan</string>
+    <string name="login">Masuk</string>
+    <string name="name">Nama</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="register_attention">Belum memiliki akun?</string>
+    <string name="register">Daftar</string>
+    <string name="logout">Keluar</string>
+    <string name="date">9 April, 2022</string>
+    <string name="description">Deskripsi</string>
+    <string name="story_photo">Cerita foto</string>
+    <string name="add_story">Menambahkan story baru</string>
+    <string name="settings">Pengaturan</string>
+    <string name="logout_message">Apakah kamu yakin ingin keluar?</string>
+    <string name="yes">Ya</string>
+    <string name="cancel">Batal</string>
+    <string name="upload">Unggah</string>
+    <string name="gallery">Galeri</string>
+    <string name="camera">Kamera</string>
+    <string name="add_new_story">Bangkit Story Baru</string>
+    <string name="choose_picture">Pilih gambar</string>
+    <string name="package_name">com.bangkit.story</string>
+    <string name="photo">foto</string>
+    <string name="login_illustration">Ilustrasi masuk</string>
+    <string name="register_illustration">Ilustrasi daftar</string>
+    <string name="language">Bahasa</string>
+    <string name="appwidget_text">Bangkit Story</string>
+    <string name="empty_text">Tidak ada data. Mohon login terlebih dahulu</string>
+
+    <!-- Toast messages -->
+    <string name="login_success">Berhasil masuk</string>
+    <string name="name_required_error">Nama wajib diisi</string>
+    <string name="email_required_error">Email wajib diisi</string>
+    <string name="description_required_error">Deskripsi wajib diisi</string>
+    <string name="email_invalid_error">Format email salah</string>
+    <string name="password_required_error">Kata sandi wajib diisi</string>
+    <string name="password_length_error">Kata sandi minimal 6 karakter</string>
+    <string name="password_white_space_error">Kata sandi tidak boleh mengandung spasi</string>
+    <string name="password_upper_case_error">Kata sandi wajib mengandung huruf kapital</string>
+    <string name="password_lower_case_error">Kata sandi wajib mengandung huruf non-kapital</string>
+    <string name="password_number_error">Kata sandi wajib mengandung angka</string>
+    <string name="image_required_error">Mohon masukkan gambar</string>
+    <string name="permission_error">Gagal mendapatkan izin</string>
+    <string name="add_widget">Tambahkan widget</string>
+    <string name="app_widget_description">Bangkit Story Widget</string>
+</resources>
