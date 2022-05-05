@@ -8,11 +8,12 @@ import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatDelegate
 import com.bangkit.story.R
-import com.bangkit.story.data.local.SessionManager
+import com.bangkit.story.data.local.preferences.SessionManager
 import com.bangkit.story.utils.DELAY
 
 @SuppressLint("CustomSplashScreen")
 class SplashScreenActivity : AppCompatActivity() {
+
     private lateinit var sessionManager: SessionManager
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -6,23 +6,15 @@ import android.widget.RemoteViews
 import android.widget.RemoteViewsService
 import androidx.core.os.bundleOf
 import com.bangkit.story.R
-import com.bangkit.story.data.local.SessionManager
+import com.bangkit.story.di.Injection
 import com.bangkit.story.utils.getBitmapFromURL
 
 internal class StackRemoteViewsFactory(private val context: Context) : RemoteViewsService.RemoteViewsFactory {
     private var widgetItems = ArrayList<String>()
-    private lateinit var sessionManager: SessionManager
-
-    override fun onCreate() {
-        sessionManager = SessionManager(context)
-    }
 
     override fun onDataSetChanged() {
-        sessionManager.apply {
-            for (i in 0..5) {
-                widgetItems.add(getImage("image-$i"))
-            }
-        }
+        val images = Injection.provideRepository(context).getImagesForWidget()
+        widgetItems.addAll(images)
     }
 
     override fun getViewAt(position: Int): RemoteViews {
@@ -41,6 +33,8 @@ internal class StackRemoteViewsFactory(private val context: Context) : RemoteVie
         rv.setOnClickFillInIntent(R.id.storyPhotoWidget, fillInIntent)
         return rv
     }
+
+    override fun onCreate(){}
 
     override fun onDestroy() {}
 

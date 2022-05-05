@@ -31,6 +31,12 @@
     <string name="language">Language</string>
     <string name="appwidget_text">Bangkit Story</string>
     <string name="empty_text">No data. Please login first</string>
+    <string name="retry">Retry</string>
+    <string name="maps">Maps</string>
+    <string name="loc_stories">Stories Location</string>
+    <string name="sort">Sort</string>
+    <string name="with_location">With Location</string>
+    <string name="without_location">Without Location</string>
 
     <!-- Toast messages -->
     <string name="login_success">Login Successfully</string>
@@ -48,4 +54,7 @@
     <string name="permission_error">Failed to get permission</string>
     <string name="add_widget">Add widget</string>
     <string name="app_widget_description">Bangkit Story Widget</string>
+    <string name="title_activity_maps">MapsActivity</string>
+    <string name="loc_not_found">Location is not found. Try Again</string>
+    <string name="form_empty">Please fill the form</string>
 </resources>

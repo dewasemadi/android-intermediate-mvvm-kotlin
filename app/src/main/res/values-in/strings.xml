@@ -32,6 +32,12 @@
     <string name="language">Bahasa</string>
     <string name="appwidget_text">Bangkit Story</string>
     <string name="empty_text">Tidak ada data. Mohon login terlebih dahulu</string>
+    <string name="retry">Coba lagi</string>
+    <string name="maps">Peta</string>
+    <string name="loc_stories">Lokasi Cerita</string>
+    <string name="sort">Sortir</string>
+    <string name="with_location">Dengan Lokasi</string>
+    <string name="without_location">Tanpa Lokasi</string>
 
     <!-- Toast messages -->
     <string name="login_success">Berhasil masuk</string>
@@ -49,4 +55,7 @@
     <string name="permission_error">Gagal mendapatkan izin</string>
     <string name="add_widget">Tambahkan widget</string>
     <string name="app_widget_description">Bangkit Story Widget</string>
+    <string name="title_activity_maps">MapsActivity</string>
+    <string name="loc_not_found">Lokasi tidak ditemuka. Coba lagi</string>
+    <string name="form_empty">Mohon isi form terlebih dahulu</string>
 </resources>

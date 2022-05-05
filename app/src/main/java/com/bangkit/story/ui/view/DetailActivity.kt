@@ -8,6 +8,7 @@ import com.bangkit.story.utils.setImage
 import com.bangkit.story.utils.withDateFormat
 
 class DetailActivity : AppCompatActivity() {
+
     private lateinit var binding: ActivityDetailBinding
     private var rotationValue = 0f
     private var tap = 1

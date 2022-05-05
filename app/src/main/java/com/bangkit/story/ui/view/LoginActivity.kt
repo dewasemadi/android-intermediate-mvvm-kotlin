@@ -3,24 +3,23 @@ package com.bangkit.story.ui.view
 import android.animation.AnimatorSet
 import android.annotation.SuppressLint
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import com.bangkit.story.R
-import com.bangkit.story.data.local.SessionManager
+import com.bangkit.story.data.local.entity.User
+import com.bangkit.story.data.local.preferences.SessionManager
 import com.bangkit.story.databinding.ActivityLoginBinding
 import com.bangkit.story.ui.viewmodel.LoginViewModel
 import com.bangkit.story.ui.viewmodel.ViewModelFactory
-import com.bangkit.story.utils.State
-import com.bangkit.story.utils.fadeIn
-import com.bangkit.story.utils.isEmailValid
-import com.bangkit.story.utils.isPasswordValid
+import com.bangkit.story.utils.*
 
 class LoginActivity : AppCompatActivity() {
+
     private lateinit var binding: ActivityLoginBinding
     private lateinit var sessionManager: SessionManager
     private val loginViewModel: LoginViewModel by viewModels {
@@ -33,6 +32,7 @@ class LoginActivity : AppCompatActivity() {
         initViewBinding()
         initToolbar()
         playAnimation()
+        setFormValue()
         onLoginPressed()
         onMoveToRegisterActivity()
     }
@@ -68,6 +68,15 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    private fun setFormValue(){
+        val user = intent.getParcelableExtra<User>(EXTRA_USER)
+
+        binding.apply {
+            emailEditText.setTextValue(user?.email)
+            passwordEditText.setTextValue(user?.password)
+        }
+    }
+
     private fun onLoginPressed() {
         binding.apply {
             passwordEditText.addTextChangedListener(object : TextWatcher {
@@ -86,8 +95,14 @@ class LoginActivity : AppCompatActivity() {
                 val password = passwordEditText.text.toString()
                 val (_, isEmailValid) = isEmailValid(this@LoginActivity, email)
                 val (_, isPasswordValid) = isPasswordValid(this@LoginActivity, password)
-                if (email.isNotEmpty() && password.isNotEmpty() && isEmailValid && isPasswordValid) {
-                    initObserver(email, password)
+                if (email.isEmpty() || password.isEmpty()){
+                    Toast.makeText(this@LoginActivity, getString(R.string.form_empty), Toast.LENGTH_SHORT).show()
+                } else {
+                    if (isEmailValid && isPasswordValid) {
+                        emailEditTextLayout.clearFocus()
+                        passwordEditText.clearFocus()
+                        initObserver(email, password)
+                    }
                 }
             }
         }
@@ -109,7 +124,7 @@ class LoginActivity : AppCompatActivity() {
                         emailEditText.text?.clear()
                         passwordEditText.text?.clear()
                     }
-                    sessionManager.saveToken(response.data.loginResult?.token.toString())
+                    sessionManager.setToken(response.data.loginResult?.token.toString())
                     Toast.makeText(this, getString(R.string.login_success), Toast.LENGTH_SHORT).show()
                     onMoveToMainActivity()
                 }
@@ -135,5 +150,9 @@ class LoginActivity : AppCompatActivity() {
             val toRegister = Intent(this, RegisterActivity::class.java)
             startActivity(toRegister)
         }
+    }
+
+    companion object {
+        const val EXTRA_USER = "extra_user"
     }
 }

@@ -1,0 +1,45 @@
+ViewModel
+a. Ketika login berhasil 
+   - Memastikan mengembalikan data user
+   - Memastikan mengembalikan State.Success
+   - Memastikan mengembalikan token jwt
+
+b. Ketika register berhasil 
+   - Memastikan mengembalikan State.Success
+   - Memastikan mengembalikan pesan sukses
+
+c. Ketika berhasil menambahkan story baru
+   - Memastikan mengembalikan State.Success
+   - Memastikan mengembalikan pesan sukses
+
+d. Ketika berhasil mendapatkan daftar seluruh story
+   - Memastikan mengembalikan data story
+
+e. Ketika berhasil mendapatkan daftar seluruh story untuk MapActivity
+   - Memastikan mengembalikan data story untuk MapActivity
+
+f. Ketika koneksi internet mengalami gangguan
+   - Memastikan mengembalikan State.Error
+   - Memastikan mengembalikan pesan error
+
+=====================================================================================
+
+Repository
+a. Ketika mengambil data dari internet
+   - Memastikan data tidak null
+   - Memastikan jumlah data sesuai dengan yang diharapkan
+
+b. Ketika menyimpan data ke database
+   - Data tersebut muncul di getAllStoriesForMap()
+
+c. Ketika menghapus data dari database
+   - Data tersebut tidak muncul di getAllStoriesForMap()
+
+=====================================================================================
+
+Integration Test: List Story
+a. Ketika berhasil menampilkan data story di Main Activity
+   - RecyclerView tampil
+   - Data yang ditampilkan sesuai
+
+=====================================================================================

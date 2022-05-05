@@ -1,9 +1,6 @@
 package com.bangkit.story.data.remote.retrofit
 
-import androidx.annotation.Nullable
-import com.bangkit.story.data.remote.response.Base
-import com.bangkit.story.data.remote.response.Login
-import com.bangkit.story.data.remote.response.Stories
+import com.bangkit.story.data.remote.response.*
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.http.*
@@ -15,27 +12,28 @@ interface ApiService {
         @Field("name") name: String,
         @Field("email") email: String,
         @Field("password") password: String
-    ): Base
+    ): BaseResponse
 
     @FormUrlEncoded
     @POST("login")
     suspend fun login(
         @Field("email") email: String,
         @Field("password") password: String,
-    ): Login
+    ): LoginResponse
 
     @Multipart
     @POST("stories")
     suspend fun addNewStory(
         @Part("description") description: RequestBody,
         @Part file: MultipartBody.Part,
-        @Nullable @Part("lat") lat: Float? = null,
-        @Nullable @Part("lon") lon: Float? = null,
-    ): Base
+        @Part("lat") lat: Float?,
+        @Part("lon") lon: Float?,
+    ): BaseResponse
 
     @GET("stories")
     suspend fun getAllStories(
         @Query("page") page: Int,
         @Query("size") size: Int,
-    ): Stories
+        @Query("location") location: Int,
+    ): StoryResponse
 }

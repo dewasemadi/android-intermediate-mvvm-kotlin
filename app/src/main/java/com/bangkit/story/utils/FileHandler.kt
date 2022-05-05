@@ -14,7 +14,6 @@ import java.net.URL
 import java.text.SimpleDateFormat
 import java.util.*
 
-
 private const val FILENAME_FORMAT = "dd-MMM-yyyy"
 
 val timeStamp: String = SimpleDateFormat(FILENAME_FORMAT, Locale.US).format(System.currentTimeMillis())

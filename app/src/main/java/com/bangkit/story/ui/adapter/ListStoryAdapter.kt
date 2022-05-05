@@ -1,19 +1,17 @@
 package com.bangkit.story.ui.adapter
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bangkit.story.data.remote.response.Story
 import com.bangkit.story.databinding.LayoutStoryBinding
 import com.bangkit.story.utils.setImage
 import com.bangkit.story.utils.withDateFormat
 
-class ListStoryAdapter: RecyclerView.Adapter<ListStoryAdapter.ListViewHolder>() {
-    private var listStory = ArrayList<Story>()
+class ListStoryAdapter : PagingDataAdapter<Story, ListStoryAdapter.ListViewHolder>(DIFF_CALLBACK) {
     private lateinit var onItemClickCallback: OnItemClickCallback
-
-    class ListViewHolder(var binding: LayoutStoryBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ListViewHolder {
         val binding = LayoutStoryBinding.inflate(LayoutInflater.from(viewGroup.context), viewGroup, false)
@@ -21,14 +19,21 @@ class ListStoryAdapter: RecyclerView.Adapter<ListStoryAdapter.ListViewHolder>() 
     }
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
-        val (_, name, _, photoUrl, createdAt) = listStory[position]
-
-        holder.binding.apply {
-            storyPhoto.setImage(holder.itemView.context, photoUrl)
-            tvName.text = name
-            tvDate.text = createdAt?.withDateFormat()
+        val data = getItem(position)
+        if (data != null) {
+            holder.bind(data)
+            holder.itemView.setOnClickListener { onItemClickCallback.onItemClicked(data) }
         }
-        holder.itemView.setOnClickListener { onItemClickCallback.onItemClicked(listStory[holder.adapterPosition]) }
+    }
+
+    class ListViewHolder(private val binding: LayoutStoryBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(data: Story) {
+            binding.apply {
+                storyPhoto.setImage(itemView.context, data.photoUrl)
+                tvName.text = data.name
+                tvDate.text = data.createdAt?.withDateFormat()
+            }
+        }
     }
 
     interface OnItemClickCallback {
@@ -39,17 +44,15 @@ class ListStoryAdapter: RecyclerView.Adapter<ListStoryAdapter.ListViewHolder>() 
         this.onItemClickCallback = onItemClickCallback
     }
 
-    override fun getItemCount() = listStory.size
+    companion object {
+        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Story>() {
+            override fun areItemsTheSame(oldItem: Story, newItem: Story): Boolean {
+                return oldItem == newItem
+            }
 
-    @SuppressLint("NotifyDataSetChanged")
-    fun addList(listStory: ArrayList<Story>){
-        this.listStory.addAll(listStory)
-        notifyDataSetChanged()
-    }
-
-    @SuppressLint("NotifyDataSetChanged")
-    fun clear(){
-        this.listStory.clear()
-        notifyDataSetChanged()
+            override fun areContentsTheSame(oldItem: Story, newItem: Story): Boolean {
+                return oldItem.id == newItem.id
+            }
+        }
     }
 }

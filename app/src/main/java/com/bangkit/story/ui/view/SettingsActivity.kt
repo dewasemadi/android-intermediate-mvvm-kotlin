@@ -5,11 +5,12 @@ import android.os.Bundle
 import android.provider.Settings
 import androidx.appcompat.app.AppCompatActivity
 import com.bangkit.story.R
-import com.bangkit.story.data.local.SessionManager
+import com.bangkit.story.data.local.preferences.SessionManager
 import com.bangkit.story.databinding.ActivitySettingsBinding
 import com.bangkit.story.utils.onAlertDialog
 
 class SettingsActivity : AppCompatActivity() {
+
     private lateinit var sessionManager: SessionManager
     private lateinit var binding: ActivitySettingsBinding
 
@@ -53,7 +54,7 @@ class SettingsActivity : AppCompatActivity() {
 
             onAlertDialog(this, title, message, cancel, yes) {
                 // callback impl
-                sessionManager.removeToken()
+                sessionManager.clearSession()
                 onMoveToLoginActivity()
             }
         }

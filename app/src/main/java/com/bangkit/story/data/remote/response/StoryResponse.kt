@@ -1,10 +1,12 @@
 package com.bangkit.story.data.remote.response
 
 import android.os.Parcelable
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
-data class Stories(
+data class StoryResponse(
     @field:SerializedName("error")
     val error: Boolean? = null,
 
@@ -15,10 +17,12 @@ data class Stories(
     val listStory: ArrayList<Story>? = null
 )
 
+@Entity("story")
 @Parcelize
 data class Story(
+    @PrimaryKey
     @field:SerializedName("id")
-    val id: String? = null,
+    val id: String,
 
     @field:SerializedName("name")
     val name: String? = null,

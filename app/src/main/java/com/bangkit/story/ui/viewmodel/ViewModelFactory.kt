@@ -14,6 +14,7 @@ class ViewModelFactory(private val repository: Repository): ViewModelProvider.Ne
             modelClass.isAssignableFrom(LoginViewModel::class.java) -> LoginViewModel(repository) as T
             modelClass.isAssignableFrom(RegisterViewModel::class.java) -> RegisterViewModel(repository) as T
             modelClass.isAssignableFrom(NewStoryViewModel::class.java) -> NewStoryViewModel(repository) as T
+            modelClass.isAssignableFrom(MapsViewModel::class.java) -> MapsViewModel(repository) as T
             else -> throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }
     }
@@ -22,12 +23,12 @@ class ViewModelFactory(private val repository: Repository): ViewModelProvider.Ne
         @Volatile
         private var instance: ViewModelFactory? = null
 
-        fun getInstance(context: Context): ViewModelFactory {
-            return instance ?: synchronized(this) {
+        fun getInstance(context: Context): ViewModelFactory =
+            instance ?: synchronized(this) {
                 instance ?: ViewModelFactory(
                     Injection.provideRepository(context),
                 )
             }.also { instance = it }
-        }
+
     }
 }

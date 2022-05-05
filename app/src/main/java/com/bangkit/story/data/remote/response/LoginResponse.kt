@@ -2,7 +2,7 @@ package com.bangkit.story.data.remote.response
 
 import com.google.gson.annotations.SerializedName
 
-data class Login(
+data class LoginResponse(
     @field:SerializedName("error")
     val error: Boolean? = null,
 

@@ -8,6 +8,8 @@ import android.text.TextWatcher
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
+import com.bangkit.story.R
+import com.bangkit.story.data.local.entity.User
 import com.bangkit.story.databinding.ActivityRegisterBinding
 import com.bangkit.story.ui.viewmodel.RegisterViewModel
 import com.bangkit.story.ui.viewmodel.ViewModelFactory
@@ -16,6 +18,7 @@ import com.bangkit.story.utils.isEmailValid
 import com.bangkit.story.utils.isPasswordValid
 
 class RegisterActivity : AppCompatActivity() {
+
     private lateinit var binding: ActivityRegisterBinding
     private val registerViewModel: RegisterViewModel by viewModels {
         ViewModelFactory.getInstance(this)
@@ -56,8 +59,16 @@ class RegisterActivity : AppCompatActivity() {
                 val password = passwordEditText.text.toString()
                 val (_, isEmailValid) = isEmailValid(this@RegisterActivity, email)
                 val (_, isPasswordValid) = isPasswordValid(this@RegisterActivity, password)
-                if (name.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty() && isEmailValid && isPasswordValid)
-                    initObserver(name, email, password)
+                if (name.isEmpty() || email.isEmpty() || password.isEmpty()) {
+                    Toast.makeText(this@RegisterActivity, getString(R.string.form_empty), Toast.LENGTH_SHORT).show()
+                } else {
+                   if (isEmailValid && isPasswordValid) {
+                       nameEditTextLayout.clearFocus()
+                       emailEditTextLayout.clearFocus()
+                       passwordEditTextLayout.clearFocus()
+                       initObserver(name, email, password)
+                   }
+                }
             }
         }
     }
@@ -80,7 +91,8 @@ class RegisterActivity : AppCompatActivity() {
                         passwordEditText.text?.clear()
                     }
                     Toast.makeText(this, response.data.message, Toast.LENGTH_SHORT).show()
-                    onMoveToLoginActivity()
+                    val user = User(email, password)
+                    onMoveToLoginActivity(user)
                 }
                 is State.Error -> {
                     binding.apply {
@@ -93,8 +105,9 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
-    private fun onMoveToLoginActivity() {
+    private fun onMoveToLoginActivity(user: User) {
         val toLogin = Intent(this, LoginActivity::class.java)
+        toLogin.putExtra(LoginActivity.EXTRA_USER, user)
         startActivity(toLogin)
         finish()
     }
